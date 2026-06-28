@@ -10,8 +10,9 @@ export function Nav() {
         </Link>
         <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
           <a href="/#agents" className="transition-colors hover:text-foreground">Agents</a>
+          <Link to="/risk" className="transition-colors hover:text-foreground">Risk</Link>
+          <Link to="/governance" className="transition-colors hover:text-foreground">Governance</Link>
           <a href="/#architecture" className="transition-colors hover:text-foreground">Architecture</a>
-          <a href="/#security" className="transition-colors hover:text-foreground">Security</a>
           <Link to="/architecture" className="transition-colors hover:text-foreground">Docs</Link>
         </nav>
         <div className="flex items-center gap-3">

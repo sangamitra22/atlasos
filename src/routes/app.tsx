@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { WordMark } from "@/components/atlas/Logo";
+import { WalletButton } from "@/components/atlas/WalletButton";
+import { TxToast } from "@/components/atlas/TxToast";
+import { DemoOverlay, useDemoMode } from "@/components/atlas/DemoMode";
+import { useTx, useWallet, type TxRequest } from "@/lib/atlas-chain";
 import { agents, portfolioStats, positions, riskFindings, activity, proposals } from "@/lib/atlas-data";
 
 export const Route = createFileRoute("/app")({
@@ -18,30 +22,46 @@ type Tab = (typeof TABS)[number];
 
 function AppShell() {
   const [tab, setTab] = useState<Tab>("Overview");
-  const [walletConnected, setWalletConnected] = useState(true);
+  const tx = useTx();
+  const wallet = useWallet();
+  const demo = useDemoMode();
+
+  function requireWallet(): boolean {
+    if (!wallet) {
+      alert("Connect your HashKey wallet to broadcast this transaction.");
+      return false;
+    }
+    return true;
+  }
+  async function exec(req: TxRequest) {
+    if (!requireWallet()) return;
+    await tx.run(req);
+  }
 
   return (
     <div className="min-h-screen">
       <div className="flex">
-        <Sidebar tab={tab} setTab={setTab} />
+        <Sidebar tab={tab} setTab={setTab} onStartDemo={demo.start} />
         <main className="flex-1 min-w-0">
-          <TopBar walletConnected={walletConnected} setWalletConnected={setWalletConnected} />
+          <TopBar />
           <div className="mx-auto max-w-7xl px-8 py-8">
-            {tab === "Overview" && <Overview />}
-            {tab === "Portfolio" && <Portfolio />}
-            {tab === "Agents" && <AgentsView />}
-            {tab === "Risk" && <Risk />}
-            {tab === "Chat" && <Chat />}
-            {tab === "Governance" && <Governance />}
+            {tab === "Overview" && <Overview exec={exec} />}
+            {tab === "Portfolio" && <Portfolio exec={exec} />}
+            {tab === "Agents" && <AgentsView exec={exec} />}
+            {tab === "Risk" && <RiskTab />}
+            {tab === "Chat" && <Chat exec={exec} />}
+            {tab === "Governance" && <GovernanceTab />}
             {tab === "Activity" && <Activity />}
           </div>
         </main>
       </div>
+      <TxToast {...tx} onClose={tx.reset} />
+      {demo.active && <DemoOverlay onExit={demo.stop} />}
     </div>
   );
 }
 
-function Sidebar({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
+function Sidebar({ tab, setTab, onStartDemo }: { tab: Tab; setTab: (t: Tab) => void; onStartDemo: () => void }) {
   return (
     <aside className="sticky top-0 hidden h-screen w-64 shrink-0 border-r border-border/40 bg-background/60 backdrop-blur-xl md:flex md:flex-col">
       <div className="border-b border-border/40 px-5 py-4">
@@ -60,8 +80,22 @@ function Sidebar({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
             {t}
           </button>
         ))}
+        <div className="mt-3 border-t border-border/40 pt-3 space-y-1">
+          <Link to="/risk" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-surface hover:text-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40" /> Risk page →
+          </Link>
+          <Link to="/governance" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-surface hover:text-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40" /> Governance →
+          </Link>
+        </div>
       </nav>
-      <div className="border-t border-border/40 p-4">
+      <div className="border-t border-border/40 p-4 space-y-3">
+        <button
+          onClick={onStartDemo}
+          className="w-full rounded-xl bg-gradient-primary px-3 py-2 text-sm font-medium text-primary-foreground shadow-[0_0_30px_oklch(0.82_0.16_200/0.35)]"
+        >
+          ▸ Launch Demo Mode
+        </button>
         <div className="rounded-xl border border-border/60 bg-surface/60 p-3 text-xs">
           <div className="font-mono uppercase tracking-widest text-muted-foreground">Network</div>
           <div className="mt-1 flex items-center gap-2">
@@ -75,7 +109,7 @@ function Sidebar({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
   );
 }
 
-function TopBar({ walletConnected, setWalletConnected }: { walletConnected: boolean; setWalletConnected: (v: boolean) => void }) {
+function TopBar() {
   return (
     <div className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/40 bg-background/60 px-8 backdrop-blur-xl">
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -89,31 +123,16 @@ function TopBar({ walletConnected, setWalletConnected }: { walletConnected: bool
           <span className="font-mono uppercase tracking-widest text-muted-foreground">Block</span>
           <span className="font-mono">#18,422,901</span>
         </div>
-        {walletConnected ? (
-          <button
-            onClick={() => setWalletConnected(false)}
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/60 px-3 py-1.5 text-sm transition-colors hover:bg-surface-2"
-          >
-            <span className="h-2 w-2 rounded-full bg-success" />
-            <span className="font-mono">0x7a2…f3e1</span>
-          </button>
-        ) : (
-          <button
-            onClick={() => setWalletConnected(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-primary px-4 py-1.5 text-sm font-medium text-primary-foreground"
-          >
-            Connect Wallet
-          </button>
-        )}
+        <div data-demo="wallet"><WalletButton /></div>
       </div>
     </div>
   );
 }
 
-function StatCard({ label, value, delta, deltaTone = "primary" }: { label: string; value: string; delta?: string; deltaTone?: "primary" | "success" | "warning" }) {
+function StatCard({ label, value, delta, deltaTone = "primary", id }: { label: string; value: string; delta?: string; deltaTone?: "primary" | "success" | "warning"; id?: string }) {
   const tone = deltaTone === "success" ? "text-success" : deltaTone === "warning" ? "text-warning" : "text-primary";
   return (
-    <div className="surface-card rounded-2xl p-5">
+    <div data-demo={id} className="surface-card rounded-2xl p-5">
       <div className="text-xs uppercase tracking-wider text-muted-foreground">{label}</div>
       <div className="mt-2 font-display text-3xl font-semibold">{value}</div>
       {delta && <div className={`mt-1 text-xs ${tone}`}>{delta}</div>}
@@ -121,19 +140,33 @@ function StatCard({ label, value, delta, deltaTone = "primary" }: { label: strin
   );
 }
 
-function Overview() {
+type Exec = (req: TxRequest) => Promise<void>;
+
+function Overview({ exec }: { exec: Exec }) {
   return (
     <div className="space-y-8">
-      <header>
-        <div className="font-mono text-xs uppercase tracking-widest text-primary">Overview</div>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight">Good evening, Operator.</h1>
-        <p className="mt-1 text-muted-foreground">6 agents are running across your portfolio. No interventions required.</p>
+      <header className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div className="font-mono text-xs uppercase tracking-widest text-primary">Overview</div>
+          <h1 className="mt-2 text-4xl font-semibold tracking-tight">Good evening, Operator.</h1>
+          <p className="mt-1 text-muted-foreground">6 agents are running across your portfolio. No interventions required.</p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => exec({ contract: "AtlasVault", method: "deposit", args: { amount: "10000 USDC" } })}
+            className="rounded-xl bg-gradient-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          >Deposit to Vault</button>
+          <button
+            onClick={() => exec({ contract: "AtlasVault", method: "rebalanceAll" })}
+            className="rounded-xl border border-border bg-surface/60 px-4 py-2 text-sm hover:bg-surface-2"
+          >Rebalance now</button>
+        </div>
       </header>
 
       <div className="grid gap-4 md:grid-cols-4">
         <StatCard label="Total Value Managed" value={portfolioStats.tvl} delta={portfolioStats.tvlChange} deltaTone="success" />
         <StatCard label="Net APY" value={`${portfolioStats.netApy}%`} delta="+1.2% wk" />
-        <StatCard label="Health Factor" value={String(portfolioStats.healthFactor)} delta="safe · target ≥ 1.8" deltaTone="success" />
+        <StatCard id="health" label="Health Factor" value={String(portfolioStats.healthFactor)} delta="safe · target ≥ 1.8" deltaTone="success" />
         <StatCard label="24h P&L" value={portfolioStats.exposure24h} delta="+1.21%" deltaTone="success" />
       </div>
 
@@ -174,7 +207,13 @@ function Overview() {
                 <span className="font-mono text-[10px] uppercase tracking-widest text-success">● live</span>
               </div>
               <div className="mt-1 text-xs text-muted-foreground">{a.role}</div>
-              <div className="mt-3 font-mono text-xs text-primary">{a.metric}</div>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="font-mono text-xs text-primary">{a.metric}</span>
+                <button
+                  onClick={() => exec({ contract: "PolicyManager", method: "ping", args: { agent: a.id } })}
+                  className="rounded-md border border-border bg-surface/60 px-2 py-1 text-[10px] hover:bg-surface-2"
+                >ping</button>
+              </div>
             </div>
           ))}
         </div>
@@ -184,7 +223,6 @@ function Overview() {
 }
 
 function Sparkline() {
-  // Synthetic but pretty curve
   const points = Array.from({ length: 60 }, (_, i) => {
     const x = i / 59;
     const noise = Math.sin(i * 0.6) * 0.04 + Math.sin(i * 0.21) * 0.06;
@@ -212,7 +250,7 @@ function Sparkline() {
   );
 }
 
-function Portfolio() {
+function Portfolio({ exec }: { exec: Exec }) {
   return (
     <div className="space-y-6">
       <header>
@@ -223,7 +261,7 @@ function Portfolio() {
         <table className="w-full text-sm">
           <thead className="border-b border-border/60 text-left text-xs uppercase tracking-wider text-muted-foreground">
             <tr>
-              {["Protocol", "Asset", "Value", "APY", "Risk", "Managed by"].map((h) => (
+              {["Protocol", "Asset", "Value", "APY", "Risk", "Managed by", ""].map((h) => (
                 <th key={h} className="px-5 py-3 font-mono font-normal">{h}</th>
               ))}
             </tr>
@@ -241,6 +279,12 @@ function Portfolio() {
                   }`}>{p.risk}</span>
                 </td>
                 <td className="px-5 py-4 font-mono text-xs text-primary">{p.agent}</td>
+                <td className="px-5 py-4 text-right">
+                  <button
+                    onClick={() => exec({ contract: "TradingAgent", method: "closePosition", args: { protocol: p.protocol, asset: p.asset } })}
+                    className="rounded-md border border-border bg-surface/60 px-2 py-1 text-xs hover:bg-surface-2"
+                  >Manage</button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -250,7 +294,7 @@ function Portfolio() {
   );
 }
 
-function AgentsView() {
+function AgentsView({ exec }: { exec: Exec }) {
   return (
     <div className="space-y-6">
       <header>
@@ -269,7 +313,10 @@ function AgentsView() {
                   <div className="text-xs text-muted-foreground">{a.role}</div>
                 </div>
               </div>
-              <button className="rounded-lg border border-border bg-surface/60 px-3 py-1.5 text-xs hover:bg-surface-2">Configure</button>
+              <button
+                onClick={() => exec({ contract: "PolicyManager", method: "updatePolicy", args: { agent: a.id } })}
+                className="rounded-lg border border-border bg-surface/60 px-3 py-1.5 text-xs hover:bg-surface-2"
+              >Configure</button>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">{a.description}</p>
             <div className="mt-5 grid grid-cols-3 gap-3 border-t border-border/60 pt-4 text-xs">
@@ -284,17 +331,23 @@ function AgentsView() {
   );
 }
 
-function Risk() {
+function RiskTab() {
   return (
     <div className="space-y-6">
-      <header>
-        <div className="font-mono text-xs uppercase tracking-widest text-primary">Risk</div>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight">Risk intelligence</h1>
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <div className="font-mono text-xs uppercase tracking-widest text-primary">Risk</div>
+          <h1 className="mt-2 text-4xl font-semibold tracking-tight">Risk intelligence</h1>
+        </div>
+        <Link
+          to="/risk"
+          className="rounded-xl bg-gradient-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+        >Open full Risk Engine →</Link>
       </header>
       <div className="grid gap-4 md:grid-cols-3">
-        <StatCard label="Portfolio Risk Score" value="A-" delta="low correlation" deltaTone="success" />
-        <StatCard label="Liquidation Buffer" value="48.2%" delta="HF 2.31" deltaTone="success" />
-        <StatCard label="Open Alerts" value="1" delta="1 critical · governance" deltaTone="warning" />
+        <div className="surface-card rounded-2xl p-5"><div className="text-xs uppercase tracking-wider text-muted-foreground">Portfolio Risk Score</div><div className="mt-2 font-display text-3xl font-semibold">A−</div><div className="mt-1 text-xs text-success">low correlation</div></div>
+        <div className="surface-card rounded-2xl p-5"><div className="text-xs uppercase tracking-wider text-muted-foreground">Liquidation Buffer</div><div className="mt-2 font-display text-3xl font-semibold">48.2%</div><div className="mt-1 text-xs text-success">HF 2.31</div></div>
+        <div className="surface-card rounded-2xl p-5"><div className="text-xs uppercase tracking-wider text-muted-foreground">Open Alerts</div><div className="mt-2 font-display text-3xl font-semibold">1</div><div className="mt-1 text-xs text-warning">1 critical · governance</div></div>
       </div>
       <div className="surface-card rounded-2xl p-6">
         <h3 className="font-display text-lg font-semibold">Recent findings</h3>
@@ -319,7 +372,7 @@ function Risk() {
   );
 }
 
-function Chat() {
+function Chat({ exec }: { exec: Exec }) {
   const [messages, setMessages] = useState([
     { role: "agent", name: "Atlas", text: "Hello Operator. Your portfolio is healthy. Sentinel preempted one liquidation today; Harvester rebalanced $84k into HashSwap LP. What would you like to do?" },
   ]);
@@ -342,6 +395,7 @@ function Chat() {
       },
     ]);
     setInput("");
+    exec({ contract: "AtlasVault", method: "logIntent", args: { prompt: text } }).catch(() => {});
   }
   return (
     <div className="space-y-6">
@@ -351,7 +405,7 @@ function Chat() {
         <p className="mt-1 text-muted-foreground">Natural language commands routed across the agent network.</p>
       </header>
 
-      <div className="surface-card flex h-[560px] flex-col rounded-2xl">
+      <div data-demo="chat" className="surface-card flex h-[560px] flex-col rounded-2xl">
         <div className="flex-1 space-y-4 overflow-y-auto p-6">
           {messages.map((m, i) => (
             <div key={i} className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
@@ -391,13 +445,16 @@ function Chat() {
   );
 }
 
-function Governance() {
+function GovernanceTab() {
   return (
     <div className="space-y-6">
-      <header>
-        <div className="font-mono text-xs uppercase tracking-widest text-primary">Governance</div>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight">Proposals</h1>
-        <p className="mt-1 text-muted-foreground">Consul simulates impact and casts your delegated votes.</p>
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <div className="font-mono text-xs uppercase tracking-widest text-primary">Governance</div>
+          <h1 className="mt-2 text-4xl font-semibold tracking-tight">Proposals</h1>
+          <p className="mt-1 text-muted-foreground">Consul simulates impact and casts your delegated votes.</p>
+        </div>
+        <Link to="/governance" className="rounded-xl bg-gradient-primary px-4 py-2 text-sm font-medium text-primary-foreground">Open Governance →</Link>
       </header>
       <div className="surface-card overflow-hidden rounded-2xl">
         <table className="w-full text-sm">
