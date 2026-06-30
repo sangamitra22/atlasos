@@ -5,8 +5,7 @@ AtlasOS is an autonomous AI agent network that manages risk, yield, liquidations
 This repository contains the UI, backend, agent orchestration code, smart contracts, and documentation to build and deploy AtlasOS. The repo is primarily TypeScript (frontend, backend, and SDK), with smart contracts in Solidity and supporting scripts.
 
 Quick Links
-- Website: https://atlasos.xyz (TBD)
-- Docs: /docs (in repo)
+- Website: https://atlas-os-defi-ai-haskey.lovable.app
 - Pitch & overview: pitch.md
 - Architecture: ARCHITECTURE.md
 - Security: SECURITY.md
@@ -157,8 +156,8 @@ This repository is released under the MIT License. See LICENSE file for details.
 
 Contact
 
-- Maintainers: hello@atlasos.xyz
-- Security: security@atlasos.xyz
+- Maintainers: emotionalcoders@gmail.com
+- Security: emotionalcoders@gmail.com
 
 Acknowledgements
 
