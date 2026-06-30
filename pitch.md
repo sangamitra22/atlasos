@@ -442,10 +442,9 @@ Privacy & Compliance
 AtlasOS is an autonomous AI agent network that manages risk, yield, liquidations and treasury on HashKey Chain — non-custodial, transparent, on-chain.
 
 Quick links:
-- Website: (TBD)
-- Docs: /docs
+- Website: https://atlas-os-defi-ai-haskey.lovable.app/
 - Repo: github.com/sangamitra22/atlasos
-- Contact: hello@atlasos.xyz (replace as appropriate)
+- Contact: emotionalcoders@gmail.com
 
 Getting started (developer)
 1. Clone
@@ -466,7 +465,7 @@ Architecture overview
 
 Contributing
 - Open PRs for docs and agents.
-- Security: report any vulnerability to security@atlasos.xyz and follow responsible disclosure.
+- Security: report any vulnerability to emotionalcoders@gmail.com and follow responsible disclosure.
 - Code style: Prettier, ESLint, TypeScript strict mode.
 
 Tests
@@ -478,7 +477,7 @@ License
 - MIT (or choose your license)
 
 Contact & Governance
-- For enterprise integrations and audits: contact enterprise@atlasos.xyz
+- For enterprise integrations and audits: contact emotionalcoders@gmail.com
 - Governance: initial governance controlled by founding multisig until DAO handoff.
 
 ---
