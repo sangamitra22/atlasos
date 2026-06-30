@@ -1,0 +1,346 @@
+AtlasOS Pitch Deck — Slide-by-Slide
+
+Note: This file is a textual slide deck with speaker notes. If you want a binary .pptx file, I can generate a proper .pptx and re-upload; confirm and I'll create a true PPTX. For now, this contains the full slide text and speaker notes so it can be converted easily.
+
+Filename: AtlasOS_Pitch_Deck_v1.pptx (text format placeholder)
+
+---
+
+Slide 1 — COVER
+Title: AtlasOS
+Subtitle: Autonomous AI Operating System for On‑Chain Finance
+Tagline: Non‑custodial, auditable automation — optimized for HashKey Chain
+Date: 2026-06-30
+Contact: emotionalcoders@gmail.com
+Website: https://atlas-os-defi-ai-haskey.lovable.app/
+
+Speaker notes:
+One-line intro: AtlasOS runs autonomous, auditable AI agents to manage risk, yield, liquidations and treasury operations on-chain. Today I'll walk through the problem, our solution, architecture, AI design and GTM.
+
+---
+
+Slide 2 — EXECUTIVE SUMMARY
+Bullets:
+- What AtlasOS is: AI agent network + policy engine + on-chain enforcement
+- Problem: DeFi ops are manual, 24/7, and risky — treasury & protocol teams need automation
+- Solution: Composable agents for risk, yield, liquidations, treasury with governance-first controls
+- Vision: The AI OS for on-chain finance — enterprise-grade, auditable, extensible
+
+Speaker notes:
+Summarize mission and immediate value proposition. Stress non-custodial and auditable nature.
+
+---
+
+Slide 3 — PROBLEM STATEMENT
+Bullets:
+- Constant monitoring required (risk, liquidations, yield shifts)
+- Manual scripts & teams are slow and error-prone
+- Institutional treasuries need compliance & auditability
+- Existing bots are single-purpose and brittle
+
+Speaker notes:
+Use an example: a leveraged position that could be rescued if monitored 24/7; manual teams miss windows leading to avoidable losses.
+
+---
+
+Slide 4 — SOLUTION OVERVIEW
+Bullets:
+- Off-chain AI agents propose actions; on-chain smart contracts enforce policies
+- Agent types: Risk Manager, Yield Optimizer, Liquidation Agent, Treasury Manager
+- Governance & multisig for high-impact actions; capability tokens for delegated actions
+
+Speaker notes:
+Explain the separation of concerns: agents propose, contracts enforce. This enables automation while preserving custody and governance.
+
+---
+
+Slide 5 — VISION & MISSION
+Bullets:
+- Long-term: Platform pleatform where protocols and treasuries plug in policies and capital
+- Build marketplace for agents and strategies
+- Provide enterprise SLAs and auditability to accelerate institutional DeFi adoption
+
+Speaker notes:
+Paint a picture of the ecosystem: third-party agents, audited strategies, enterprise pilots.
+
+---
+
+Slide 6 — WHY HASHKEY CHAIN
+Bullets:
+- Institutionally aligned ecosystem
+- Competitive fees & throughput for frequent autonomous actions
+- Potential for custody & compliance integrations
+- Good fit for enterprise pilots and treasury customers
+
+Speaker notes:
+Note: website and repo demo target HashKey Chain for initial pilots.
+
+---
+
+Slide 7 — PRODUCT OVERVIEW: HERO & VALUE
+Bullets:
+- Hero: "The AI Operating System for On-Chain Finance"
+- Quick stats: (placeholder) TVL managed, average yield uplift, uptime
+- CTA: Request demo / Connect org wallet
+
+Speaker notes:
+Explain quick conversion-focused elements and metrics we will use to build credibility.
+
+---
+
+Slide 8 — PRODUCT OVERVIEW: AI OPERATING SYSTEM (CONCEPT)
+Bullets:
+- Agent network + Policy Manager + Execution Coordinator + On-chain logs
+- Composable strategies via Strategy Composer
+- Sandbox & Backtesting
+
+Speaker notes:
+Emphasize that this is a platform, not just a strategy.
+
+---
+
+Slide 9 — PRODUCT OVERVIEW: PURPOSE & BUSINESS VALUE
+Bullets:
+- Purpose: Safer, more efficient on-chain finance
+- Business value: Reduced ops cost, improved yield, minimized liquidation losses
+- ROI examples: recover X% of liquidation losses (placeholder metrics)
+
+Speaker notes:
+Tie to quantifiable benefits for treasuries and protocols.
+
+---
+
+Slide 10 — PRODUCT OVERVIEW: TECHNICAL IMPLEMENTATION & USER BENEFIT
+Bullets:
+- Full stack: Next.js frontend, Node/TS backend, Kubernetes agents, model serving, smart contracts
+- TypeScript SDK for integrators
+- User benefits: lower ops overhead, continuous monitoring, governance controls
+
+Speaker notes:
+Call out developer friendliness: TypeScript SDK and documented APIs.
+
+---
+
+Slide 11 — WEBSITE WALKTHROUGH (HOME & PRODUCT)
+Bullets:
+- Home: Hero, metrics, audits, demo CTA
+- Product: Agent gallery, diagrams, features
+
+Speaker notes:
+Explain how the site educates and converts different personas.
+
+---
+
+Slide 12 — WEBSITE WALKTHROUGH (DOCS, DEMO, SECURITY)
+Bullets:
+- Docs: Smart contract addresses, SDK, integration guides
+- Demo: Forked sandbox for safe simulation
+- Security: Audit reports, bug bounty
+
+Speaker notes:
+Highlight transparency and trust via published audits and sandbox demos.
+
+---
+
+Slide 13 — WEBSITE WALKTHROUGH (ENTERPRISE, CASE STUDIES, DASHBOARD)
+Bullets:
+- Enterprise: SLA, managed service, onboarding
+- Case studies: yield uplift, rescued positions
+- Dashboard: Agent management, logs, policy editor
+
+Speaker notes:
+Show how enterprise customers manage and govern agents.
+
+---
+
+Slide 14 — USER JOURNEY: PROTOCOL OPERATOR
+Steps:
+- Discover → Demo → Configure → Simulate → Approve (multisig) → Deploy → Monitor
+
+Speaker notes:
+Focus on governance-first flows: how a protocol operator would authorize and monitor agents.
+
+---
+
+Slide 15 — USER JOURNEY: TREASURY MANAGER
+Steps:
+- Onboard multisig → Select policy template → Run backtests → Approval → Ongoing reporting
+
+Speaker notes:
+Highlight compliance reporting and ROI metrics for treasuries.
+
+---
+
+Slide 16 — USER JOURNEY: LIQUIDATOR / ARBITRAGE SPECIALIST
+Steps:
+- Connect strategies → Provide relayer access (scoped) → Monitor mempool opportunities → Execute MEV-aware bundles
+
+Speaker notes:
+Explain profit opportunities while respecting safety constraints.
+
+---
+
+Slide 17 — COMPLETE ARCHITECTURE (DIAGRAM)
+Description:
+- UI → API → Orchestrator → Agents → Relayer → HashKey Chain Contracts → Data Lake
+
+Speaker notes:
+Walk the data flow and control flow. Indexer → Agents → Proposal → Policy → Execution.
+
+---
+
+Slide 18 — ARCHITECTURE: COMPONENTS & DATA FLOW
+Bullets:
+- Indexer, Oracles, Model Serving, Agent Orchestrator, Relayer, Smart Contracts
+- Data: real-time feeds, historical DB, feature store, object store for models
+
+Speaker notes:
+Call out critical component: indexer and low-latency needs for liquidation agents.
+
+---
+
+Slide 19 — AI ARCHITECTURE: AGENTS & MODELS
+Bullets:
+- Risk Manager: anomaly detection, risk scoring
+- Yield Optimizer: bandit/MAB, meta-optimization
+- Liquidator: mempool-aware, profitability estimator
+- Treasury Manager: portfolio optimization, CVaR
+- Training: offline labeling, retraining cycles; Serving: Triton/TorchServe
+
+Speaker notes:
+Explain how models and rule-based systems combine.
+
+---
+
+Slide 20 — AI ARCHITECTURE: SAFETY & EXPLAINABILITY
+Bullets:
+- Rationale & confidence scores for each proposal
+- Simulation before execution on a fork
+- Deterministic guardrails & human signoff for high impact
+
+Speaker notes:
+Stress how safety is built-in to prevent rogue actions.
+
+---
+
+Slide 21 — FEATURE-BY-FEATURE
+Bullets (short explanation each):
+- Autonomous Agents
+- Strategy Composer
+- Policy Engine
+- Sandbox & Backtesting
+- Transparent Audit Trail
+- Governance Integrations
+- Marketplace for plugins
+- Relayer & MEV-aware Execution
+- Observability & Alerts
+
+Speaker notes:
+One-liner explanations and user benefit for each feature.
+
+---
+
+Slide 22 — TECHNICAL ARCHITECTURE (INFRA & DEV STACK)
+Bullets:
+- Next.js, Node/TS, Kubernetes, GPU clusters, Postgres/ClickHouse, S3
+- CI/CD: GitHub Actions for tests & deploys
+- SDK: TypeScript client, contract ABIs, examples
+
+Speaker notes:
+Give quick deployment notes and recommended cloud infra.
+
+---
+
+Slide 23 — SECURITY ARCHITECTURE
+Bullets:
+- Timelocks, multisig, capability tokens
+- Oracle aggregation & sanity checks
+- HSM/KMS for relayer keys
+- Bug bounty & audits
+
+Speaker notes:
+Outline incident response steps and bug bounty program.
+
+---
+
+Slide 24 — COMPETITIVE ANALYSIS
+Bullets:
+- Yearn & yield aggregators: deep domain but single-purpose
+- Liquidation bots: niche & brittle
+- Emerging agent frameworks: early-stage
+- AtlasOS differentiation: composable agents + enterprise-first + governance
+
+Speaker notes:
+Highlight moat: platform, enterprise integrations, marketplace.
+
+---
+
+Slide 25 — INVESTOR PITCH
+Bullets:
+- Market opportunity: growing TVL and institutional adoption
+- Business model: SaaS, revenue share, marketplace fees, professional services
+- Ask: Funding for engineering, audits, pilots; partners for custody & relaying
+
+Speaker notes:
+Explain revenue streams and immediate go-to-market plan.
+
+---
+
+Slide 26 — DEMO FLOW
+Bullets (step-by-step):
+- Forked testnet demo with pre-seeded positions
+- Connect wallet → Select policy → Simulate strategy → Approve & deploy → Show live agent action
+
+Speaker notes:
+Timebox ~20 minutes and highlight security/auditability.
+
+---
+
+Slide 27 — ROADMAP & MILESTONES
+Bullets:
+- M1: Core agents & contracts (complete)
+- M2: Sandbox & backtesting (Q3)
+- M3: Enterprise pilots on HashKey Chain (Q4)
+- M4: Marketplace & plugin ecosystem (2027)
+
+Speaker notes:
+High-level timeline and resource asks.
+
+---
+
+Slide 28 — TEAM & CONTACT
+Bullets:
+- Founders: (names)
+- Core team: engineering, ML, security
+- Advisors & partners
+- Contact: emotionalcoders@gmail.com
+- Website: https://atlas-os-defi-ai-haskey.lovable.app/
+
+Speaker notes:
+One sentence on founder/credibility and call to action to schedule pilots.
+
+---
+
+Slide 29 — APPENDIX (TECHNICAL DETAILS)
+Bullets:
+- Smart contract interfaces
+- Policy DSL examples
+- Mermaid diagrams and sequence flows
+
+Speaker notes:
+Offer to share repo links and deeper docs on request.
+
+---
+
+Slide 30 — CLOSING & ASK
+Bullets:
+- Recap the problem and AtlasOS solution
+- Funding & partnerships requested
+- CTA: Schedule pilot or technical deep-dive
+
+Speaker notes:
+Clear next steps for investors and partners.
+
+---
+
+End of slide deck text placeholder. To create a binary PowerPoint (.pptx) with these slides and speaker notes, confirm and I will produce a .pptx file and commit it to the repository. Alternatively I can generate a PDF or a series of PNG slides.
