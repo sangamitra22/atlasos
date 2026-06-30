@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect width="100%" height="100%" fill="#080A0C"/>
+  <g transform="translate(64,64)">
+    <circle cx="448" cy="160" r="160" fill="none" stroke="#0A6FFF" stroke-width="12" opacity="0.4" />
+    <path d="M224 640 C 320 560, 576 560, 704 640 L 704 896 L 224 896 Z" fill="#071224" stroke="#00E5B3" stroke-width="2"/>
+    <text x="0" y="980" fill="#FFFFFF" font-family="Montserrat, Arial" font-size="48">AtlasOS</text>
+  </g>
+</svg>

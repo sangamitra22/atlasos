@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="512" viewBox="0 0 1024 512">
+  <rect width="100%" height="100%" fill="#080A0C"/>
+  <text x="40" y="60" fill="#FFFFFF" font-family="Montserrat, Arial" font-size="36">Solution</text>
+  <text x="40" y="120" fill="#CCCCCC" font-family="Montserrat, Arial" font-size="24">Off-chain AI agents + on-chain enforcement</text>
+  <text x="40" y="160" fill="#CCCCCC" font-family="Montserrat, Arial" font-size="24">Governance-first controls</text>
+  <text x="40" y="200" fill="#CCCCCC" font-family="Montserrat, Arial" font-size="24">Sandbox & audits</text>
+</svg>

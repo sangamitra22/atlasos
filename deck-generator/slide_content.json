@@ -1,0 +1,122 @@
+{
+  "slides": [
+    {
+      "title": "AtlasOS",
+      "content": [
+        "Autonomous AI Operating System for On-Chain Finance",
+        "Non-custodial, auditable automation — optimized for HashKey Chain",
+        "Contact: emotionalcoders@gmail.com",
+        "Website: https://atlas-os-defi-ai-haskey.lovable.app/"
+      ],
+      "notes": "One-line intro: AtlasOS runs autonomous, auditable AI agents to manage risk, yield, liquidations and treasury operations on-chain. Today I'll walk through the problem, our solution, architecture, AI design and GTM.",
+      "diagram": "cover.svg"
+    },
+    {
+      "title": "Executive Summary",
+      "content": [
+        "What AtlasOS is: AI agent network + policy engine + on-chain enforcement",
+        "Problem: DeFi ops are manual, 24/7, and risky — treasury & protocol teams need automation",
+        "Solution: Composable agents for risk, yield, liquidations, treasury with governance-first controls",
+        "Vision: The AI OS for on-chain finance — enterprise-grade, auditable, extensible"
+      ],
+      "notes": "Summarize mission and immediate value proposition. Stress non-custodial and auditable nature.",
+      "diagram": "architecture.svg"
+    },
+    {
+      "title": "Problem Statement",
+      "content": [
+        "Constant monitoring required (risk, liquidations, yield shifts)",
+        "Manual scripts & teams are slow and error-prone",
+        "Institutional treasuries need compliance & auditability",
+        "Existing bots are single-purpose and brittle"
+      ],
+      "notes": "Use an example: a leveraged position that could be rescued if monitored 24/7; manual teams miss windows leading to avoidable losses.",
+      "diagram": "problem.svg"
+    },
+    {
+      "title": "Solution Overview",
+      "content": [
+        "Off-chain AI agents propose actions; on-chain smart contracts enforce policies",
+        "Agent types: Risk Manager, Yield Optimizer, Liquidation Agent, Treasury Manager",
+        "Governance & multisig for high-impact actions; capability tokens for delegated actions"
+      ],
+      "notes": "Explain the separation of concerns: agents propose, contracts enforce. This enables automation while preserving custody and governance.",
+      "diagram": "solution.svg"
+    },
+    {
+      "title": "Product Overview — Hero & Value",
+      "content": [
+        "Hero: 'The AI Operating System for On-Chain Finance'",
+        "Quick stats: TVL managed, average yield uplift, uptime (placeholders)",
+        "CTA: Request demo / Connect org wallet"
+      ],
+      "notes": "Explain quick conversion-focused elements and metrics we will use to build credibility.",
+      "diagram": "hero.svg"
+    },
+    {
+      "title": "Website Walkthrough",
+      "content": [
+        "Home: Hero, metrics, audits, demo CTA",
+        "Product: Agent gallery, diagrams, features",
+        "Docs: Smart contract addresses, SDK, integration guides"
+      ],
+      "notes": "Explain how the site educates and converts different personas.",
+      "diagram": "website.svg"
+    },
+    {
+      "title": "User Journey — Protocol Operator",
+      "content": [
+        "Discover → Demo → Configure → Simulate → Approve (multisig) → Deploy → Monitor"
+      ],
+      "notes": "Focus on governance-first flows: how a protocol operator would authorize and monitor agents.",
+      "diagram": "journey.svg"
+    },
+    {
+      "title": "Complete Architecture",
+      "content": [
+        "UI → API → Orchestrator → Agents → Relayer → HashKey Chain Contracts → Data Lake",
+        "Indexers, Oracles, Model Serving, Relayer, Smart Contracts"
+      ],
+      "notes": "Walk the data flow and control flow. Indexer → Agents → Proposal → Policy → Execution.",
+      "diagram": "architecture.svg"
+    },
+    {
+      "title": "AI Architecture",
+      "content": [
+        "Risk Manager, Yield Optimizer, Liquidator, Treasury Manager",
+        "Training: offline labeling, retraining cycles; Serving: Triton/TorchServe",
+        "Safety: simulation, deterministic guardrails, explainability"
+      ],
+      "notes": "Explain how models and rule-based systems combine.",
+      "diagram": "ai.svg"
+    },
+    {
+      "title": "Security & Competitive Analysis",
+      "content": [
+        "Security: Timelocks, multisig, capability tokens, oracle aggregation, HSM/KMS",
+        "Competitive differentiation: composable agents, enterprise-first, governance"
+      ],
+      "notes": "Outline incident response & moat.",
+      "diagram": "security.svg"
+    },
+    {
+      "title": "Investor Pitch & Demo Flow",
+      "content": [
+        "Business model: SaaS, revenue share, marketplace fees, professional services",
+        "Demo Flow: Forked testnet demo, connect wallet, simulate, approve & deploy"
+      ],
+      "notes": "Explain revenue streams and immediate go-to-market plan.",
+      "diagram": "investor.svg"
+    },
+    {
+      "title": "Closing & Ask",
+      "content": [
+        "Recap the problem and AtlasOS solution",
+        "Ask: funding for engineering, audits, pilots; partners for custody & relaying",
+        "CTA: Schedule pilot or technical deep-dive"
+      ],
+      "notes": "Clear next steps for investors and partners.",
+      "diagram": "closing.svg"
+    }
+  ]
+}

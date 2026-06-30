@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="512" viewBox="0 0 1024 512">
+  <rect width="100%" height="100%" fill="#080A0C"/>
+  <text x="40" y="60" fill="#FFFFFF" font-family="Montserrat, Arial" font-size="36">AI Agents</text>
+  <text x="40" y="120" fill="#CCCCCC" font-family="Montserrat, Arial" font-size="24">Risk Manager</text>
+  <text x="40" y="160" fill="#CCCCCC" font-family="Montserrat, Arial" font-size="24">Yield Optimizer</text>
+  <text x="40" y="200" fill="#CCCCCC" font-family="Montserrat, Arial" font-size="24">Liquidator</text>
+  <text x="40" y="240" fill="#CCCCCC" font-family="Montserrat, Arial" font-size="24">Treasury Manager</text>
+  <rect x="520" y="80" width="420" height="320" fill="#071224" stroke="#0A6FFF" stroke-width="3"/>
+  <text x="540" y="120" fill="#00E5B3" font-family="Montserrat, Arial" font-size="24">HashKey Chain</text>
+</svg>
